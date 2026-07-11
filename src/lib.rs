@@ -1,3 +1,5 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+
 pub mod bootloader_info;
 pub mod date_at_boot;
 pub mod device_tree;
