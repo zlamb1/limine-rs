@@ -29,7 +29,7 @@ impl Request {
         self.response
     }
 
-    pub const fn response(&self) -> Option<&Response> {
+    pub const fn response(&self) -> Option<&'static Response> {
         unsafe { self.response.as_ref() }
     }
 
