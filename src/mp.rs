@@ -234,6 +234,26 @@ impl Response {
         self.bsp_phys_id
     }
 
+    #[cfg(target_arch = "x86_64")]
+    pub const fn is_bsp(&self, cpu: &Cpu) -> bool {
+        self.bsp_lapic_id == cpu.lapic_id()
+    }
+
+    #[cfg(target_arch = "aarch64")]
+    pub const fn is_bsp(&self, cpu: &Cpu) -> bool {
+        self.bsp_mpidr == cpu.mpidr()
+    }
+
+    #[cfg(target_arch = "riscv64")]
+    pub const fn is_bsp(&self, cpu: &Cpu) -> bool {
+        self.bsp_hartid == cpu.hartid()
+    }
+
+    #[cfg(target_arch = "loongarch64")]
+    pub const fn is_bsp(&self, cpu: &Cpu) -> bool {
+        self.bsp_phys_id == cpu.phys_id()
+    }
+
     pub fn len(&self) -> usize {
         self.count.try_into().unwrap()
     }
